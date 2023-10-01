@@ -41,10 +41,43 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item {{ Nav::isRoute('home') }}">
-            <a class="nav-link" href="{{ route('home') }}">
+        <li class="nav-item {{ Nav::isRoute('admin.home') }}">
+            <a class="nav-link" href="{{ route('admin.home') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>{{ __('Dashboard') }}</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            {{ __('Admin') }}
+        </div>
+
+
+        <li class="nav-item {{ Nav::isRoute('admin.pesanan') }}">
+            <a class="nav-link" href="{{ route('admin.pesanan') }}">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>{{ __('Pemesanan Online') }}</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.penjualan') }}">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>{{ __('Penjualan') }}</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.galon') }}">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>{{ __('Stok Galon') }}</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>{{ __('Rekap Pendapatan') }}</span></a>
         </li>
 
         <!-- Divider -->
@@ -56,16 +89,16 @@
         </div>
 
         <!-- Nav Item - Profile -->
-        <li class="nav-item {{ Nav::isRoute('profile') }}">
-            <a class="nav-link" href="{{ route('profile') }}">
+        <li class="nav-item {{ Nav::isRoute('admin.profile') }}">
+            <a class="nav-link" href="{{ route('admin.profile') }}">
                 <i class="fas fa-fw fa-user"></i>
                 <span>{{ __('Profile') }}</span>
             </a>
         </li>
 
         <!-- Nav Item - About -->
-        <li class="nav-item {{ Nav::isRoute('about') }}">
-            <a class="nav-link" href="{{ route('about') }}">
+        <li class="nav-item {{ Nav::isRoute('admin.about') }}">
+            <a class="nav-link" href="{{ route('admin.about') }}">
                 <i class="fas fa-fw fa-hands-helping"></i>
                 <span>{{ __('About') }}</span>
             </a>
@@ -246,7 +279,7 @@
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('profile') }}">
+                            <a class="dropdown-item" href="{{ route('admin.profile') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 {{ __('Profile') }}
                             </a>
