@@ -108,9 +108,13 @@
         }
 
         .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-            gap: 3rem;
+            /* display: grid; */
+            /* grid-template-columns: repeat(auto-fit, minmax(300px, auto)); */
+            /* gap: 3rem; */
+        }
+
+        .products h1{
+            font-size: 4rem;
         }
 
         .row {
