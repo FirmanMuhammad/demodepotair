@@ -11,7 +11,8 @@
                     @foreach ($data as $d)
                         <div class="col-sm-6">
                             {{-- <div class="row" style="width: 500px;"> --}}
-                            <img src="{{ asset('front/assets/images/bojong.jpeg') }}" width="100%" alt="">
+                            <img src="{{ $d->foto ? url('/storage' . '/' . $d->foto) : asset('front/assets/images/bojong.jpeg') }}"
+                                width="100%" alt="">
                             <div class="price">
                                 <h1>{{ $d->nama_depot }}</h1>
                                 <h4>{{ $d->alamat_depot }}</h4>
