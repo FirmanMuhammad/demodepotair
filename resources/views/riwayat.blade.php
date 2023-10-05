@@ -53,9 +53,9 @@
 
 
                         </div>
-                        <div class="card-image col-xs-12"
+                        {{-- <div class="card-image col-xs-12"
                             style="background-image: url('{{ asset(`front/assets/images/img-01.jpg`) }}')">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
