@@ -2,7 +2,7 @@
 @section('content')
     <section class="trending-product" id="trending">
         <div class="center-text">
-            <h2>Depot Air Sekitar </h2>
+            <h2>Depot Air Sekitar</h2>
         </div>
 
         <div class="container">
