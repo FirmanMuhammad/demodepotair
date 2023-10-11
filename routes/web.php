@@ -17,11 +17,11 @@ use App\Models\DepotAir;
 */
 
 
-Route::get('/', function () {  
-    $data = DepotAir::all();  
+Route::get('/', function () {
+    $data = DepotAir::all();
     return view('welcome', compact('data'));
 })->name('welcome');
-Route::get('/tentang', function () {    
+Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
 
@@ -36,24 +36,24 @@ Route::get('/dashboard', function () {
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function () {
-    
+
     Route::get('/home', 'HomeController@index')->name('home');
-    
+
     Route::get('/admin', 'AdminController@index')->name('admin');
-    
+
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::put('/profile', 'ProfileController@update')->name('profile.update');
-    
+
     Route::get('/about', function () {
         return view('about');
     })->name('about');
-    
+
     Route::controller(PesananController::class)->prefix('pesanan')->group(function () {
         Route::get('', 'index')->name('pesanan');
         Route::get('insert', 'create')->name('pesanan.insert');
         Route::post('insert', 'store')->name('penjualan.add.store');
     });
-    
+
     Route::controller(GalonController::class)->prefix('galon')->group(function () {
         Route::get('', 'index')->name('galon');
         Route::get('insert', 'create')->name('galon.insert');
@@ -62,7 +62,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
         // Route::post('edit/{id_galon}', 'update')->name('galon.update');
         //Route::get('hapus/{id_galon', 'hapus')->name('galon.hapus');
     });
-    
+
     Route::controller(PenjualanController::class)->prefix('penjualan')->group(function () {
         Route::get('', 'index')->name('penjualan');
         Route::get('insert', 'create')->name('penjualan.insert');
@@ -73,12 +73,16 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
     });
 });
 
-Route::middleware(['user'])->group(function(){
-    Route::get('/kemitraan','UserPesananController@indexDepot')->name('kemitraan');
-    Route::post('/kemitraan','UserPesananController@storeDepot')->name('kemitraan');
-    Route::get('/riwayat','UserPesananController@riwayat')->name('riwayat');
-    Route::get('/pesanan','UserPesananController@index')->name('pesanan');
-    Route::post('/pesanan','UserPesananController@store')->name('pesanan.store');
+Route::middleware(['user'])->group(function () {
+    Route::get('/kemitraan', 'UserPesananController@indexDepot')->name('kemitraan');
+    Route::post('/kemitraan', 'UserPesananController@storeDepot')->name('kemitraan');
+    Route::get('/riwayat', 'UserPesananController@riwayat')->name('riwayat');
+    Route::get('/riwayat/{value}/{id}', 'UserPesananController@updateStatusRiwayat')->name('riwayat.update');
+    Route::get('/riwayat/pdf', 'UserPesananController@riwayatPdf')->name('riwayat.pdf');
+    Route::get('/pesanan', 'UserPesananController@index')->name('pesanan');
+    Route::post('/pesanan', 'UserPesananController@store')->name('pesanan.store');
+
+    Route::post('/ganti-foto', 'UserPesananController@ganti_foto')->name('ganti_foto');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

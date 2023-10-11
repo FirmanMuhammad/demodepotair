@@ -35,7 +35,7 @@
         header {
             background: url({{ asset('front/assets/images/wave-header.svg') }});
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             color: white;
             padding: 10px;
         }
@@ -108,9 +108,19 @@
         }
 
         .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-            gap: 3rem;
+            /* display: grid; */
+            /* grid-template-columns: repeat(auto-fit, minmax(300px, auto)); */
+            /* gap: 3rem; */
+        }
+
+        .products h1 {
+            font-size: 2rem;
+            margin: 12px 0 0 0;
+            padding: 0;
+        }
+
+        .products img{
+            border-radius: 8px;
         }
 
         .row {
@@ -317,6 +327,44 @@
             text-transform: capitalize;
         }
 
+        .link {
+            color: #212121;
+            background: none !important;
+            border: none !important;
+            margin-left: 20px;
+        }
+
+        .profil-btn .btn {
+            border: none !important;
+            background: none
+        }
+
+        .profil-btn img {
+            width: 50px;
+        }
+
+        .btn-masuk {
+            border: none;
+            padding: 4px 14px;
+            margin: 22px 0 0 0;
+            background: #FFE300;
+            border-radius: 6px;
+            color: #1A237E;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        }
+
+        .logo {
+            display: flex;
+        }
+
+        .logo img {
+            margin-right: 8px;
+            width: 50px;
+            height: auto;
+        }
+
         @media(max-width:890px) {
             header {
                 padding: 20px 3%;
@@ -379,9 +427,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="./index.html" title="">
-                        <img src="{{ asset('front/assets/images/depot.jpeg') }}" width="50" alt="">
-                        FIRVEN DEPOT
+                    <a class="navbar-brand logo" href="{{ url('/') }}" title="">
+                        <span>
+                            <img src="{{ asset('front/assets/images/depot.jpeg') }}" alt="">
+                        </span>
+                        <span>FIRVEN DEPOT</span>
                     </a>
                 </div>
 
@@ -395,21 +445,42 @@
                         @endauth
                         <li><a href="{{ route('tentang') }}" title="">Tentang Kami</a></li>
                         @if (Auth::check())
-                        <li>
-                            <p>
+                            <li>
+                                <!-- Single button -->
+                                <div class="btn-group profil-btn">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{ url('/img/favicon.png') }}" alt="">
+                                        {{ Auth::user()->email }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Profil</a></li>
+                                        <li><a href="#">Password</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="link" title="">Keluar</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {{-- <p>
                                 <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                    <button type="submit" class="btnn btn-default navbar-btn" title="">Keluar</button>
+                                    @csrf
+                                    <button type="submit" class="btnn btn-default navbar-btn"
+                                        title="">Keluar</button>
                                 </form>
-                                
-                            </p>
-                        </li>
+
+                                </p> --}}
+                            </li>
                         @else
-                        <li>
-                            <p>
-                                <a href="{{ route('login') }}" class="btnn btn-default navbar-btn" title="">Masuk</a>
-                            </p>
-                        </li>
+                            <li>
+                                <p>
+                                    <a href="{{ route('login') }}" class="btn-masuk navbar-btn"
+                                        title="">Masuk</a>
+                                </p>
+                            </li>
                         @endif
                     </ul>
                 </div>
@@ -461,6 +532,9 @@
             </div>
         </div>
     </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {

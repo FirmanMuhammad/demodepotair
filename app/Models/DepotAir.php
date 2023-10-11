@@ -15,5 +15,6 @@ class DepotAir extends Model
         'nama_depot',
         'alamat_depot',
         'no_telepon',
+        'foto'
     ];
 }
