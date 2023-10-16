@@ -29,20 +29,10 @@
                     <div class="carousel-inner" role="listbox">
 
                         <div class="item active">
-                            <img class="img-responsive" src="{{ asset('front/assets/images/img-06.jpg') }}" alt="First slide">
+                            <img class="img-responsive" src="{{ asset('front/assets/images/embun.jpeg') }}" alt="First slide">
                             <div class="carousel-caption card-shadow reveal">
 
                                 <h3>Galon Isi Ulang</h3>
-                                <a class="left carousel-control" href="#carousel-example-generic" role="button"
-                                    data-slide="prev">
-                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" role="button"
-                                    data-slide="next">
-                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                                    <span class="sr-only">Next</span>
-                                </a>
                                 <p>
                                 Galon isi ulang berfungsi sebagai wadah atau tempat untuk menampung atau menyimpan 
                                 air minum didalamnya. Pengisian wadah dilakukan dengan menggunakan alat dan mesin 
@@ -53,9 +43,6 @@
                                 Galon isi ulang atau polikarbonat adalah botol plastik keras, yang populer dipakai 
                                 untuk air minum kemasan.
                                 </p>
-                                <a href="./project.html" class="btn btn-primary" title="">
-                                    Discover
-                                </a>
                             </div>
                         </div>
                     </div>

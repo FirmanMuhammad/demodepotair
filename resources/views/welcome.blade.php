@@ -15,10 +15,10 @@
                                 width="100%" alt="">
                             <div class="price">
                                 <h1>{{ $d->nama_depot }}</h1>
-                                <h4>{{ $d->alamat_depot }}</h4>
-                                <h4>{{ $d->no_telepon }}</h4>
+                                <h4>{{  $d->alamat_depot }}</h4>
+                                <h4>No.Hp:{{ $d->no_telepon }}</h4>
                                 <p>
-                                    <a href="{{ route('pesanan') }}" class="btnn btn-default navbar-btn"
+                                    <a href="{{ route('pesanan') }}" class="btnn btn-default navbar-btn btn-sm"
                                         title="">Pesan</a>
                                 </p>
                             </div>

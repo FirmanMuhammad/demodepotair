@@ -78,17 +78,18 @@
         .btnn {
             box-shadow: inset 0px -3px 7px 0px #00a1eb;
             background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
-            background-color: darkblue;
+            background-color: red !important;
             border-radius: 3px;
             border: 1px solid #0b0e07;
             display: inline-block;
             cursor: pointer;
             color: #ffffff;
-            font-family: Arial;
+            font-family: Calibri;
             font-size: 15px;
-            padding: 9px 23px;
+            padding: 2px 20px;
             text-decoration: none;
             text-shadow: 0px 1px 0px #263666;
+            border: none !important;
         }
 
         .btn:hover {
@@ -110,7 +111,7 @@
         .products {
             /* display: grid; */
             /* grid-template-columns: repeat(auto-fit, minmax(300px, auto)); */
-            /* gap: 3rem; */
+            /* gap: 4rem; */
         }
 
         .products h1 {
@@ -166,17 +167,26 @@
             font-size: 18px;
         }
 
-        .price h4 {
-            color: #111;
-            font-size: 16px;
+        .price h1{
+            color: #080807;
+            font-size: 30px;
             text-transform: capitalize;
             font-weight: 400;
+            font-family: sans;
+        }
+
+        .price h4 {
+            color: #080807;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Times New Roman;
         }
 
         .price p {
-            color: #151515;
+            color: #080807;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 400;
+            font-family: arial;
         }
 
         .client-reviews {
@@ -344,15 +354,15 @@
         }
 
         .btn-masuk {
-            border: none;
-            padding: 4px 14px;
-            margin: 22px 0 0 0;
-            background: #FFE300;
-            border-radius: 6px;
-            color: #1A237E;
+            border: none !important;
+            padding: 2px 5px;
+            margin: 27px 0 0 0;
+            background: #07f50b;
+            border-radius: 10px;
+            color: #f5f7f5;
             font-weight: bold;
-            font-size: 18px;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            font-size: 15px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 5px;
         }
 
         .logo {
@@ -430,14 +440,14 @@
                     <a class="navbar-brand logo" href="{{ url('/') }}" title="">
                         <span>
                             <img src="{{ asset('front/assets/images/depot.jpeg') }}" alt="">
+                            FIRVEN DEPOT
                         </span>
-                        <span>FIRVEN DEPOT</span>
+
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/" title="">Beranda</a></li>
                         @auth
                             <li><a href="{{ route('pesanan') }}" title="">Pesanan</a></li>
                             <li><a href="{{ route('riwayat') }}" title="">Riwayat</a></li>
@@ -450,12 +460,12 @@
                                 <div class="btn-group profil-btn">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ url('/img/favicon.png') }}" alt="">
-                                        {{ Auth::user()->email }} <span class="caret"></span>
+                                        <img src="{{ url('/img/akun.png') }}" alt="">
+                                        {{ Auth::user()->name}} <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Profil</a></li>
-                                        <li><a href="#">Password</a></li>
+                                    <ul class="dropdown-menu" >
+                                        <li><a class="dropdown-item" href="#">Profil</a></li>
+                                        <li><a class="dropdown-item" href="#">Password</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li>
                                             <form action="{{ route('logout') }}" method="POST">

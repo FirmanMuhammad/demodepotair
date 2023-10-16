@@ -12,9 +12,9 @@
                         <div class="card card-shadow col-xs-10 col-xs-offset-1 col-md-16 col-md-offset-1 reveal">
                             <table class="table table-hover">
                                 <thead>
-                                    <th>#</th>
+                                    <th>No</th>
                                     <th>Nama</th>
-                                    <th>Alamat s</th>
+                                    <th>Alamat </th>
                                     <th>No Hp</th>
                                     <th>Pembelian</th>
                                     <th>Jumlah</th>
@@ -49,7 +49,7 @@
                                 </tbody>
                             </table>
 
-                            <a href="{{ route('riwayat.pdf') }}" target="_blank" class="btn btn-primary">cetak laporan</a>
+                            <a href="{{ route('riwayat.pdf') }}" target="_blank" class="btn btn-primary">cetak</a>
 
 
                         </div>
@@ -86,7 +86,7 @@
 
                         } catch (error) {
                             console.log(error);
-                            alert('Terjadi kesalaha, cobalah kembali');
+                            alert('Terjadi kesalahan, cobalah kembali');
 
                         }
 

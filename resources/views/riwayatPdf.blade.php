@@ -45,9 +45,9 @@
 
     <table>
         <thead>
-            <th>#</th>
+            <th>No</th>
             <th>Nama</th>
-            <th>Alamat s</th>
+            <th>Alamat </th>
             <th>No Hp</th>
             <th>Pembelian</th>
             <th>Jumlah</th>
