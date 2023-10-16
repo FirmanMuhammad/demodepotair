@@ -82,6 +82,9 @@ Route::middleware(['user'])->group(function () {
     Route::get('/pesanan', 'UserPesananController@index')->name('pesanan');
     Route::post('/pesanan', 'UserPesananController@store')->name('pesanan.store');
 
+    Route::any('/profil', 'UserPesananController@profil')->name('profil');
+    Route::any('/password', 'UserPesananController@password')->name('password');
+
     Route::post('/ganti-foto', 'UserPesananController@ganti_foto')->name('ganti_foto');
 });
 

@@ -120,7 +120,7 @@
             padding: 0;
         }
 
-        .products img{
+        .products img {
             border-radius: 8px;
         }
 
@@ -167,7 +167,7 @@
             font-size: 18px;
         }
 
-        .price h1{
+        .price h1 {
             color: #080807;
             font-size: 30px;
             text-transform: capitalize;
@@ -460,12 +460,12 @@
                                 <div class="btn-group profil-btn">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ url('/img/akun.png') }}" alt="">
-                                        {{ Auth::user()->name}} <span class="caret"></span>
+                                        <img src="{{ Auth::user()->foto ? url('/storage'.'/',Auth::user()->foto) : url('/img/akun.png') }}" alt="">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
                                     </button>
-                                    <ul class="dropdown-menu" >
-                                        <li><a class="dropdown-item" href="#">Profil</a></li>
-                                        <li><a class="dropdown-item" href="#">Password</a></li>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{ route('profil') }}">Profil</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('password') }}">Password</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li>
                                             <form action="{{ route('logout') }}" method="POST">
