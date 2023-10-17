@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\DepotAir;
 use App\Models\Galon;
 use App\Models\penjualan;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -138,7 +140,7 @@ class UserPesananController extends Controller
     {
         if ($request->has('file')) {
             $file = $request->file;
-            $path = 'mitra';
+            $path = $request->path ? $request->path : 'mitra';
             $size_gambar = 600;
 
             $request->validate([
@@ -162,5 +164,78 @@ class UserPesananController extends Controller
                 'file' => $fullPath,
             ]);
         }
+    }
+
+
+    public function profil(Request $request)
+    {
+        if ($request->method() === 'POST') {
+
+            $request->validate([
+                'name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required|email',
+                'foto' => 'nullable'
+            ]);
+
+            DB::beginTransaction();
+            try {
+                User::where('id', Auth::id())->update([
+                    'name' => $request->name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'foto' => $request->foto,
+                ]);
+                DB::commit();
+                return redirect()->back()->with([
+                    'pesan' => '<div class="alert alert-success">Data berhasil diperbarui</div>',
+                ]);
+            } catch (\Throwable $th) {
+                Log::warning($th->getMessage());
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'pesan' => '<div class="alert alert-danger">Terjadi kesalahan, cobalah kembali</div>',
+                ]);
+            }
+        }
+
+        return view('profil');
+    }
+
+    public function password(Request $request)
+    {
+        if ($request->method() === 'POST') {
+
+            $request->validate([
+                'password_lama' => 'required',
+                'password' => 'required|confirmed',
+            ]);
+
+            $cekPassword = User::find(Auth::id());
+            if (!password_verify($request->password_lama, $cekPassword->password)) {
+                return redirect()->back()->with([
+                    'pesan' => '<div class="alert alert-danger">Password lama salah!</div>',
+                ]);
+            }
+
+            DB::beginTransaction();
+            try {
+                User::where('id', Auth::id())->update([
+                    'password' => Hash::make($request->password),
+                ]);
+                DB::commit();
+                return redirect()->back()->with([
+                    'pesan' => '<div class="alert alert-success">Password berhasil diperbarui</div>',
+                ]);
+            } catch (\Throwable $th) {
+                Log::warning($th->getMessage());
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'pesan' => '<div class="alert alert-danger">Terjadi kesalahan, cobalah kembali</div>',
+                ]);
+            }
+        }
+
+        return view('password');
     }
 }
