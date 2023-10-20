@@ -20,22 +20,39 @@
                             @endif
 
 
-                            <form action="{{ route('profil') }}" method="post" class="reveal-content">
+                            <form action="{{ route('profil.update') }}" method="post" class="reveal-content" id="my-form">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input class="form-control" type="name" name="name" placeholder="Name"
+                                            <label for="">Name</label>
+                                            <input class="form-control" type="text" name="name" placeholder="Name"
                                              value="{{ \Auth::user()->name }}" :disabled="isDisabled">
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" type="name" name="last_name"
+                                            <label for="">Last Name</label>
+                                            <input class="form-control" type="text" name="last_name"
                                                 placeholder="Last Name" value="{{ \Auth::user()->last_name }}"
                                                 :disabled="isDisabled">
                                         </div>
                                         <div class="form-group">
+                                            <label for="">Email</label>
                                             <input class="form-control" type="email" name="email" placeholder="Email"
                                              value="{{ \Auth::user()->email }}" :disabled="isDisabled">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">No. HP</label>
+                                            <input class="form-control" type="text" name="hp"
+                                                placeholder="No. Hp" value="{{ \Auth::user()->hp }}"
+                                                :disabled="isDisabled">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Alamat</label>
+                                            <input class="form-control" type="text" name="alamat"
+                                                placeholder="Alamat" value="{{ \Auth::user()->alamat }}"
+                                                :disabled="isDisabled">
                                         </div>
 
                                         <div class="form-group" v-if="!isDisabled">
@@ -110,6 +127,9 @@
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\ProfileUpdateRequest', '#my-form'); !!}
 
     <script>
         const {

@@ -10,6 +10,10 @@
                     </div>
                     <div class="card-container" id="app">
                         <div class="card card-shadow col-xs-10 col-xs-offset-1 col-md-16 col-md-offset-1 reveal">
+                            <div class="statusRiwayat">
+                                <span class="status"><span class="kotak" style="background: blue"></span>Dikirm</span>
+                                <span class="status"><span class="kotak" style="background: green"></span>Selesai</span>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <th>No</th>
@@ -20,6 +24,7 @@
                                     <th>Jumlah</th>
                                     <th>Tagihan</th>
                                     <th>status</th>
+                                    <th>tanggal</th>
                                 </thead>
                                 <tbody>
                                     @php
@@ -28,21 +33,20 @@
                                     @foreach ($data as $d)
                                         <tr>
                                             <td>{{ $n++ }}</td>
-                                            <td>{{ $d->nama }}</td>
-                                            <td>{{ $d->alamat }}</td>
-                                            <td>{{ $d->noHp }}</td>
+                                            <td>{{ $d->user->name }}</td>
+                                            <td>{{ $d->user->alamat }}</td>
+                                            <td>{{ $d->user->hp }}</td>
                                             <td>{{ $d->jenis }}</td>
                                             <td>{{ $d->jumlah }}</td>
                                             <td>{{ $d->harga }}</td>
                                             <td>
-                                                <select name="status" id="status"
-                                                    @change="handleStatus($event, {{ $d->id_penjualan }})">
-                                                    @foreach (['dikirim', 'selesai'] as $status)
-                                                        <option value="{{ $status }}"
-                                                            {{ $status == $d->status ? 'selected' : '' }}>
-                                                            {{ $status }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label class="switch">
+                                                    <input type="checkbox" {{ $d->status == 'selesai' ? 'checked' : '' }}
+                                                        @change="handleStatus($event, {{ $d->id_penjualan }})">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($d->tgl_penjualan)->isoFormat('DD MMM YYYY') }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -75,7 +79,7 @@
         createApp({
             setup() {
                 const handleStatus = (e, id) => {
-                    const label = e.target.value;
+                    const label = e.target.checked;
 
                     const updateData = async () => {
                         try {

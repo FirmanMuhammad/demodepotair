@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('penjualans', function (Blueprint $table) {
-            $table->enum('status', ['dikirim', 'selesai'])->default('dikirim')->after('harga');
+        Schema::table('depot_airs', function (Blueprint $table) {
+            $table->unsignedInteger('stok')->default(0)->after('foto');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('penjualans', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('depot_airs', function (Blueprint $table) {
+            $table->dropColumn('stok');
         });
     }
 };

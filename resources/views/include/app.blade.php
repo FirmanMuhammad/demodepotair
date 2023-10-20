@@ -375,6 +375,91 @@
             height: auto;
         }
 
+        .invalid-feedback {
+            color: red;
+        }
+
+        .is-invalid {
+            border: 1px solid red !important;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 54px;
+            height: 27px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: blue;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: green;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px green;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .statusRiwayat{
+            font-size: 14px;
+        }
+
+        .statusRiwayat .status{
+            margin-right: 8px;
+        }
+
+        .statusRiwayat .kotak{
+            width: 20px;
+            height: 20px;
+            border: 1px solid #999;
+            display: inline-block;
+            margin-right: 4px;
+            border-radius: 10px;
+        }
+
         @media(max-width:890px) {
             header {
                 padding: 20px 3%;
@@ -424,6 +509,9 @@
             }
         }
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -460,7 +548,8 @@
                                 <div class="btn-group profil-btn">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ Auth::user()->foto ? url('/storage'.'/',Auth::user()->foto) : url('/img/akun.png') }}" alt="">
+                                        <img src="{{ Auth::user()->foto ? url('/storage' . '/', Auth::user()->foto) : url('/img/akun.png') }}"
+                                            alt="">
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
@@ -542,9 +631,6 @@
             </div>
         </div>
     </footer>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {

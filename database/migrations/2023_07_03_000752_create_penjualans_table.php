@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id('id_penjualan');
-            // $table->unsignedBigInteger('user_id')->unsigned()->nullable();
-            $table->string('user_id');
-            $table->string('nama');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('jenis');
-            $table->text('alamat');
-            $table->string('noHp');
             $table->integer('jumlah');
             $table->integer('harga');
+            $table->enum('status', ['dikirim', 'selesai'])->default('dikirim');
             $table->date('tgl_penjualan');
             $table->timestamps();
 
