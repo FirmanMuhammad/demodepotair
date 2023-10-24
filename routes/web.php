@@ -21,9 +21,13 @@ Route::get('/', function () {
     $data = DepotAir::all();
     return view('welcome', compact('data'));
 })->name('welcome');
+
+
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
+
+Route::post('/feedback', 'Homecontroller@feedback')->name('feedback');
 
 Route::get('/dashboard', function () {
     if (Auth::check() && Auth::user()->is_admin == '1') {
@@ -82,7 +86,8 @@ Route::middleware(['user'])->group(function () {
     Route::get('/pesanan', 'UserPesananController@index')->name('pesanan');
     Route::post('/pesanan', 'UserPesananController@store')->name('pesanan.store');
 
-    Route::any('/profil', 'UserPesananController@profil')->name('profil');
+    Route::get('/profil', 'UserPesananController@profil')->name('profil');
+    Route::post('/profil', 'UserPesananController@updateProfil')->name('profil.update');
     Route::any('/password', 'UserPesananController@password')->name('password');
 
     Route::post('/ganti-foto', 'UserPesananController@ganti_foto')->name('ganti_foto');

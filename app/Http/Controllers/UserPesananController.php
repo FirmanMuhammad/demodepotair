@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PesananRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\StoreDepotAirRequest;
 use App\Models\DepotAir;
 use App\Models\Galon;
 use App\Models\penjualan;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,30 +28,18 @@ class UserPesananController extends Controller
         return view('pesanan', compact('data'));
     }
 
-    public function store(Request $request)
+    public function store(PesananRequest $request)
     {
-        $validasi = $request->validate([
-            'nama' => 'required',
-            'noHp' => 'required|numeric',
-            'alamat' => 'required',
-            'jumlah' => 'required',
-            'jenis' => 'required',
-        ]);
-
         DB::beginTransaction();
         try {
             $galon = Galon::where('jenis', $request->jenis)->first();
 
             penjualan::create([
                 'user_id' => Auth::user()->id,
-                'nama' => $request->nama,
                 'jenis' => $request->jenis,
-                'alamat' => $request->alamat,
-                'noHp' => $request->noHp,
                 'jumlah' => $request->jumlah,
                 'harga' => $request->jumlah * $galon->tarif,
-                'jumlah' => $request->jumlah,
-                'tgl_penjualan' => now()->format('Y-m-d'),
+                'tgl_penjualan' => Carbon::now()
             ]);
 
             DB::commit();
@@ -63,7 +55,7 @@ class UserPesananController extends Controller
 
     public function riwayat()
     {
-        $data = penjualan::where('user_id', Auth::user()->id)->get();
+        $data = penjualan::with('user')->where('user_id', Auth::user()->id)->get();
         return view('riwayat', compact('data'));
     }
 
@@ -72,7 +64,7 @@ class UserPesananController extends Controller
         DB::beginTransaction();
         try {
             penjualan::where('id_penjualan', $id)->update([
-                'status' => $value,
+                'status' => $value == 'true' ? 'selesai' : 'dikirim',
             ]);
             DB::commit();
 
@@ -92,7 +84,7 @@ class UserPesananController extends Controller
 
     public function riwayatPdf()
     {
-        $data = penjualan::where('user_id', Auth::user()->id)->get();
+        $data = penjualan::with('user')->where('user_id', Auth::user()->id)->get();
         $pdf = Pdf::setOptions([
             'defaultFont' => 'serif',
             'defaultPaperSize' => 'A4',
@@ -107,15 +99,8 @@ class UserPesananController extends Controller
         return view('mitra');
     }
 
-    public function storeDepot(Request $request)
+    public function storeDepot(StoreDepotAirRequest $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'alamat_depot' => 'required',
-            'no_telepon' => 'required',
-            'foto' => 'nullable'
-        ]);
-
         DB::beginTransaction();
         try {
             DepotAir::create([
@@ -123,6 +108,7 @@ class UserPesananController extends Controller
                 'alamat_depot' => $request->alamat_depot,
                 'no_telepon' => $request->no_telepon,
                 'foto' => $request->foto,
+                'stok' => $request->stok,
             ]);
 
             DB::commit();
@@ -166,40 +152,34 @@ class UserPesananController extends Controller
         }
     }
 
-
-    public function profil(Request $request)
+    public function profil()
     {
-        if ($request->method() === 'POST') {
-
-            $request->validate([
-                'name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|email',
-                'foto' => 'nullable'
-            ]);
-
-            DB::beginTransaction();
-            try {
-                User::where('id', Auth::id())->update([
-                    'name' => $request->name,
-                    'last_name' => $request->last_name,
-                    'email' => $request->email,
-                    'foto' => $request->foto,
-                ]);
-                DB::commit();
-                return redirect()->back()->with([
-                    'pesan' => '<div class="alert alert-success">Data berhasil diperbarui</div>',
-                ]);
-            } catch (\Throwable $th) {
-                Log::warning($th->getMessage());
-                DB::rollBack();
-                return redirect()->back()->with([
-                    'pesan' => '<div class="alert alert-danger">Terjadi kesalahan, cobalah kembali</div>',
-                ]);
-            }
-        }
-
         return view('profil');
+    }
+
+    public function updateProfil(ProfileUpdateRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            User::where('id', Auth::id())->update([
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'foto' => $request->foto,
+                'hp' => $request->hp,
+                'alamat' => $request->alamat,
+            ]);
+            DB::commit();
+            return redirect()->back()->with([
+                'pesan' => '<div class="alert alert-success">Data berhasil diperbarui</div>',
+            ]);
+        } catch (\Throwable $th) {
+            Log::warning($th->getMessage());
+            DB::rollBack();
+            return redirect()->back()->with([
+                'pesan' => '<div class="alert alert-danger">Terjadi kesalahan, cobalah kembali</div>',
+            ]);
+        }
     }
 
     public function password(Request $request)

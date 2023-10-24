@@ -16,12 +16,14 @@
                                     <div class="alert alert-danger">{{ $error }}</div>
                                 @endforeach
 
-                                <form action="{{ route('pesanan.store') }}" method="post" class="reveal-content">
+                                <form action="{{ route('pesanan.store') }}" method="post" class="reveal-content" id="my-form">
                                     @csrf
-                                    <div class="row" v-show="!box">
+
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <select class="form-control" name="jenis">
+                                                <select class="form-control" name="jenis" v-model="jenis">
+                                                    <option value="">-- Jenis Galon --</option>
                                                     @foreach ($data as $d)
                                                         <option value="{{ $d->jenis }}">{{ $d->jenis }}</option>
                                                     @endforeach
@@ -30,30 +32,10 @@
                                             <input type="number" class="form-control" name="jumlah" v-model="jumlah"
                                                 placeholder="Masukan Jumlah">
 
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Submit Pesanan</button>
+                                            </div>
 
-                                            <div class="form-group">
-                                            </div>
-                                            <button type="button" class="btn btn-primary"
-                                                @click="lanjutkan(true)">Lanjutkan</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" v-show="box">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <input class="form-control" type="name" name="nama"
-                                                    placeholder="Nama Lengkap" value="{{ old('nama') }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" name="noHp"
-                                                    placeholder="No HP Aktif" value="{{ old('noHp') }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="2" name="alamat" placeholder="Tulis Alamat Lengkap">{{ old('alamat') }}</textarea>
-                                            </div>
-                                            <button type="button" class="btn btn-outline-dark"
-                                                @click="lanjutkan(false)">kembali</button>
-                                            <button type="submit" class="btn btn-primary">Submit Pesanan</button>
                                         </div>
                                     </div>
                                 </form>
@@ -67,32 +49,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js"></script>
-    <script>
-        const {
-            createApp,
-            ref
-        } = Vue
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\PesananRequest', '#my-form'); !!}
 
-        createApp({
-            setup() {
-                const box = ref(false);
-                const jumlah = ref(0);
-
-                const lanjutkan = (props) => {
-                    if ((props && jumlah.value == 0) || (props && jumlah.value == '')) {
-                        alert('jumlah masih kosong');
-                    } else {
-                        box.value = props;
-                    }
-                }
-
-                return {
-                    box,
-                    jumlah,
-                    lanjutkan
-                }
-            }
-        }).mount('#app')
-    </script>
 @endsection

@@ -17,7 +17,7 @@
                             @endforeach
 
 
-                            <form action="{{ route('kemitraan') }}" method="post" class="reveal-content">
+                            <form action="{{ route('kemitraan') }}" method="post" class="reveal-content" id="my-form">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
@@ -31,6 +31,10 @@
                                         </div>
                                         <div class="form-group">
                                             <textarea class="form-control" rows="2" name="alamat_depot" placeholder="Tulis Alamat Lengkap"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="stok"
+                                                placeholder="Stok">
                                         </div>
 
                                         <div class="form-group">
@@ -101,6 +105,9 @@
 
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\StoreDepotAirRequest', '#my-form'); !!}
 
     <script>
         Dropzone.options.uploadImage = {

@@ -53,6 +53,7 @@
             <th>Jumlah</th>
             <th>Tagihan</th>
             <th>status</th>
+            <th>tanggal</th>
         </thead>
         <tbody>
             @php
@@ -61,13 +62,14 @@
             @foreach ($data as $d)
                 <tr>
                     <td>{{ $n++ }}</td>
-                    <td>{{ $d->nama }}</td>
+                    <td>{{ $d->user->name }}</td>
                     <td>{{ $d->alamat }}</td>
                     <td>{{ $d->noHp }}</td>
                     <td>{{ $d->jenis }}</td>
                     <td>{{ $d->jumlah }}</td>
                     <td>{{ $d->harga }}</td>
                     <td>{{ $d->status }}</td>
+                    <td>{{ \Carbon\Carbon::parse($d->tgl_penjualan)->isoFormat('DD MMM YYYY') }}</td>
                 </tr>
             @endforeach
         </tbody>
